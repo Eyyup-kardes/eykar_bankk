@@ -85,7 +85,7 @@ class _FaceAuthPageState extends State<FaceAuthPage> {
 
       debugPrint('Oran $diff');
 
-      if (diff < 1550) {
+      if (diff < 1800) {
         Get.snackbar("Başarılı", "Yüz doğrulandı!");
         Get.offAll(() => Homepage());
       } else {
