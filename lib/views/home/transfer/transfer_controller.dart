@@ -13,6 +13,10 @@ class TransferController extends GetxController {
   final fromAccountBalance = 0.0.obs;
   final toAccountBalance = 0.0.obs;
 
+  final fromUserPhotoUrl = ''.obs;
+  final toUserPhotoUrl = ''.obs;
+
+
   final isInternalTransfer = true.obs; // true: kendi hesapların arası, false: başka kullanıcı
 
   final otherUserAccounts = <Map<String, dynamic>>[].obs;
@@ -93,6 +97,7 @@ class TransferController extends GetxController {
     final fromUserSnapshot = await firestore.collection('users').doc(userId).get();
     final fromUserData = fromUserSnapshot.data();
     fromUserName.value = fromUserData?['name'] ?? 'Bilinmiyor';
+    fromUserPhotoUrl.value = fromUserData?['profileImageUrl'] ?? '';
 
     final fromAccounts = List<Map<String, dynamic>>.from(fromUserData?['cashMoney'] ?? []);
     final fromAccount = fromAccounts.firstWhere(
@@ -103,6 +108,7 @@ class TransferController extends GetxController {
 
     if (isInternalTransfer.value) {
       toUserName.value = fromUserName.value;
+      toUserPhotoUrl.value = fromUserPhotoUrl.value;
 
       final toAccount = fromAccounts.firstWhere(
             (acc) => acc['id'] == toAccountId.value,
@@ -113,6 +119,7 @@ class TransferController extends GetxController {
       final toUserSnapshot = await firestore.collection('users').doc(otherUserId.value).get();
       final toUserData = toUserSnapshot.data();
       toUserName.value = toUserData?['name'] ?? 'Bilinmiyor';
+      toUserPhotoUrl.value = toUserData?['profileImageUrl'] ?? '';
 
       final toAccounts = List<Map<String, dynamic>>.from(toUserData?['cashMoney'] ?? []);
       final toAccount = toAccounts.firstWhere(
@@ -122,6 +129,7 @@ class TransferController extends GetxController {
       toAccountBalance.value = (toAccount['amount'] ?? 0.0).toDouble();
     }
   }
+
 
 
   Future<void> makeInternalTransfer() async {

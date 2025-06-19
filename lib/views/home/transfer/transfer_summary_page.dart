@@ -17,11 +17,23 @@ class TransferSummaryPage extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
+              leading: CircleAvatar(
+                radius: 24,
+                backgroundImage: controller.fromUserPhotoUrl.value.isNotEmpty
+                    ? NetworkImage(controller.fromUserPhotoUrl.value)
+                    : const AssetImage('assets/default_person.png') as ImageProvider,
+              ),
               title: Text("Gönderen: ${controller.fromUserName.value}"),
               subtitle: Text("Hesap ID: ${controller.fromAccountId.value}"),
               trailing: Text("${controller.fromAccountBalance.value.toStringAsFixed(2)} ₺"),
             ),
             ListTile(
+              leading: CircleAvatar(
+                radius: 24,
+                backgroundImage: controller.toUserPhotoUrl.value.isNotEmpty
+                    ? NetworkImage(controller.toUserPhotoUrl.value)
+                    : const AssetImage('assets/default_person.png') as ImageProvider,
+              ),
               title: Text("Alıcı: ${controller.toUserName.value}"),
               subtitle: Text("Hesap ID: ${controller.toAccountId.value}"),
               trailing: Text("${controller.toAccountBalance.value.toStringAsFixed(2)} ₺"),
