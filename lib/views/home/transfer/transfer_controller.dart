@@ -7,6 +7,12 @@ class TransferController extends GetxController {
   final toAccountId = ''.obs;
   final amount = 0.0.obs;
 
+  final fromUserName = ''.obs;
+  final toUserName = ''.obs;
+
+  final fromAccountBalance = 0.0.obs;
+  final toAccountBalance = 0.0.obs;
+
   final isInternalTransfer = true.obs; // true: kendi hesapların arası, false: başka kullanıcı
 
   final otherUserAccounts = <Map<String, dynamic>>[].obs;
@@ -82,6 +88,41 @@ class TransferController extends GetxController {
       Get.snackbar('Hata', 'Hedef hesaplar alınamadı: $e');
     });
   }
+
+  Future<void> loadUserNamesForSummary() async {
+    final fromUserSnapshot = await firestore.collection('users').doc(userId).get();
+    final fromUserData = fromUserSnapshot.data();
+    fromUserName.value = fromUserData?['name'] ?? 'Bilinmiyor';
+
+    final fromAccounts = List<Map<String, dynamic>>.from(fromUserData?['cashMoney'] ?? []);
+    final fromAccount = fromAccounts.firstWhere(
+          (acc) => acc['id'] == fromAccountId.value,
+      orElse: () => {'amount': 0.0},
+    );
+    fromAccountBalance.value = (fromAccount['amount'] ?? 0.0).toDouble();
+
+    if (isInternalTransfer.value) {
+      toUserName.value = fromUserName.value;
+
+      final toAccount = fromAccounts.firstWhere(
+            (acc) => acc['id'] == toAccountId.value,
+        orElse: () => {'amount': 0.0},
+      );
+      toAccountBalance.value = (toAccount['amount'] ?? 0.0).toDouble();
+    } else {
+      final toUserSnapshot = await firestore.collection('users').doc(otherUserId.value).get();
+      final toUserData = toUserSnapshot.data();
+      toUserName.value = toUserData?['name'] ?? 'Bilinmiyor';
+
+      final toAccounts = List<Map<String, dynamic>>.from(toUserData?['cashMoney'] ?? []);
+      final toAccount = toAccounts.firstWhere(
+            (acc) => acc['id'] == toAccountId.value,
+        orElse: () => {'amount': 0.0},
+      );
+      toAccountBalance.value = (toAccount['amount'] ?? 0.0).toDouble();
+    }
+  }
+
 
   Future<void> makeInternalTransfer() async {
     if (!_validateTransferInputs(internal: true)) return;

@@ -17,10 +17,14 @@ class TransferSummaryPage extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              title: Text("Para Gönderiler Hesap ID: ${controller.fromAccountId.value}"),
+              title: Text("Gönderen: ${controller.fromUserName.value}"),
+              subtitle: Text("Hesap ID: ${controller.fromAccountId.value}"),
+              trailing: Text("${controller.fromAccountBalance.value.toStringAsFixed(2)} ₺"),
             ),
             ListTile(
-              title: Text("Para Alacak Hesap ID: ${controller.toAccountId.value}"),
+              title: Text("Alıcı: ${controller.toUserName.value}"),
+              subtitle: Text("Hesap ID: ${controller.toAccountId.value}"),
+              trailing: Text("${controller.toAccountBalance.value.toStringAsFixed(2)} ₺"),
             ),
             ListTile(
               title: Text("Tutar: ${controller.amount.value.toStringAsFixed(2)} ₺"),

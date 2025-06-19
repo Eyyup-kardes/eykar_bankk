@@ -24,10 +24,11 @@ class EnterAmountPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 final entered = double.tryParse(amountController.text) ?? 0.0;
                 if (entered > 0) {
                   controller.amount.value = entered;
+                  await controller.loadUserNamesForSummary(); // 👈 burada çağır
                   Get.to(() => const TransferSummaryPage());
                 } else {
                   Get.snackbar("Hata", "Geçerli bir tutar girin");
