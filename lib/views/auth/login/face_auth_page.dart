@@ -85,6 +85,8 @@ class _FaceAuthPageState extends State<FaceAuthPage> {
 
       debugPrint('Oran $diff');
 
+      /// Bu kısımda her iki foto arasındaki yüzü doğrulama oranını ölçüyor. Zor ölçerse
+      /// aşağıdaki değeri arttırın Örn: diff < 2000 gibi
       if (diff < 1800) {
         Get.snackbar("Başarılı", "Yüz doğrulandı!");
         Get.offAll(() => Homepage());
