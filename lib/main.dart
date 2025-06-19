@@ -1,4 +1,4 @@
-import 'package:eykar_bank/views/auth/login_or_home/login_or_home.dart';
+import 'package:eykar_bank/views/auth/login/login_page.dart';
 import 'package:eykar_bank/views/home/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         theme: settingsController.isDarkMode.value
             ? ThemeData.dark()
             : ThemeData.light(),
-        home: LoginOrHome(),
+        home: LoginPage(),
       );
     });
   }

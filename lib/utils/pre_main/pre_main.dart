@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import '../../views/auth/login_or_home/app_lifecycle.dart';
 import '../firebase/firebase_options.dart';
 
 class PreMain {
@@ -14,8 +13,5 @@ class PreMain {
         options: DefaultFirebaseOptions.currentPlatform,
       );
     }
-
-    final lifecycleController = AppLifecycleController();
-    lifecycleController.init();
   }
 }

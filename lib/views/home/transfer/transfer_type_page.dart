@@ -12,13 +12,13 @@ class TransferTypePage extends StatelessWidget {
     final controller = Get.put(TransferController());
     return Scaffold(
       appBar: AppBar(title: Text('Para Transferi')),
-      backgroundColor: Colors.white,
+
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           children: [
             Card(
-              color: Colors.grey,
+
               child: ListTile(
                 title: Text('Hesaplarım Arası Transfer'),
                 onTap: () {
@@ -28,7 +28,7 @@ class TransferTypePage extends StatelessWidget {
               ),
             ),
             Card(
-              color: Colors.grey,
+
               child: ListTile(
                 title: Text('Başka Hesaba Transfer'),
                 onTap: () {
