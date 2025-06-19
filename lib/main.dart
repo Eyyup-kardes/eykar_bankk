@@ -1,5 +1,5 @@
+import 'package:eykar_bank/views/auth/login_or_home/login_or_home.dart';
 import 'package:eykar_bank/views/home/settings/settings_controller.dart';
-import 'package:eykar_bank/views/login_or_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'utils/pre_main/pre_main.dart';
