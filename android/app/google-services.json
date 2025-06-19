@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "856131582275",
+    "project_id": "bankam-d4c8f",
+    "storage_bucket": "bankam-d4c8f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856131582275:android:559f43cbffaaddd76117f6",
+        "android_client_info": {
+          "package_name": "com.bankam.eykar_bank"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZTeiWGN4-cLRqZVrSrg4SFdpuRaMq1TU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

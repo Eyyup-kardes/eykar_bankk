@@ -1,0 +1,48 @@
+import 'package:eykar_bank/views/home/transfer/transfer_controller.dart';
+import 'package:eykar_bank/views/homepage.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class TransferSummaryPage extends StatelessWidget {
+  const TransferSummaryPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.find<TransferController>();
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Transfer Özeti")),
+      body: Obx(() => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            ListTile(
+              title: Text("Para Gönderiler Hesap ID: ${controller.fromAccountId.value}"),
+            ),
+            ListTile(
+              title: Text("Para Alacak Hesap ID: ${controller.toAccountId.value}"),
+            ),
+            ListTile(
+              title: Text("Tutar: ${controller.amount.value.toStringAsFixed(2)} ₺"),
+            ),
+
+            const SizedBox(height: 20),
+            controller.isLoading.value
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+              onPressed: () async {
+                if (controller.isInternalTransfer.value) {
+                  await controller.makeInternalTransfer();
+                } else {
+                  await controller.makeExternalTransferSimple();
+                }
+                Get.offAll(()=> Homepage()); // Ana sayfaya dön
+              },
+              child: const Text("Transferi Tamamla"),
+            ),
+          ],
+        ),
+      )),
+    );
+  }
+}
