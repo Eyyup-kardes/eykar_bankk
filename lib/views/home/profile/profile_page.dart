@@ -3,7 +3,7 @@ import 'package:eykar_bank/views/home/profile/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../login_page.dart';
+import '../../auth/login/login_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

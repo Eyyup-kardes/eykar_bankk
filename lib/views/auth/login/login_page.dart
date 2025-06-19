@@ -1,5 +1,5 @@
 import 'package:eykar_bank/views/auth/login/face_auth_page.dart';
-import 'package:eykar_bank/views/auth/register/register_page.dart';
+import 'package:eykar_bank/views/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'login_controller.dart';

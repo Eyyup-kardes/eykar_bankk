@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'login_or_home_controller.dart';
-import '../register/email_verification_page.dart';
+
+import '../../email_verification_page.dart';
 import '../login/face_auth_page.dart';
 import '../login/login_page.dart';
+import 'login_or_home_controller.dart';
+
 
 class LoginOrHome extends StatelessWidget {
   const LoginOrHome({super.key});

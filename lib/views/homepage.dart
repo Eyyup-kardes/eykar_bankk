@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/homepage_controller.dart';
-import 'login_page.dart';
+import 'auth/login/login_page.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});

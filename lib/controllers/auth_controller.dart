@@ -12,7 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import '../models/account_model.dart';
 import '../models/my_auth_model.dart';
 import '../services/local_storage_service.dart';
-import 'login_controller.dart';
+import '../views/auth/login/login_controller.dart';
 
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;

@@ -1,4 +1,4 @@
-import 'package:eykar_bank/views/login_page.dart';
+import 'package:eykar_bank/views/auth/login/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import '../views/otp_verify_page.dart';
