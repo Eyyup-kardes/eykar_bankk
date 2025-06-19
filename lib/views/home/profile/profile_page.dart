@@ -97,11 +97,6 @@ class ProfilePage extends StatelessWidget {
                       'TC Kimlik No: ${userData.tcNo}',
                       style: const TextStyle(fontSize: 16),
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Parola: ${userData.password}',
-                      style: const TextStyle(fontSize: 16),
-                    ),
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () async{
