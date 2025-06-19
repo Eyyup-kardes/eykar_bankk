@@ -130,4 +130,41 @@ class LoginController extends GetxController {
       return false;
     }
   }
+
+  Future<void> resetPasswordWithTc() async {
+    final inputTc = tcNo.value.trim();
+
+    if (inputTc.length != 11) {
+      Get.snackbar("Hata", "TC Kimlik Numarası 11 haneli olmalıdır.");
+      return;
+    }
+
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('tcNo', isEqualTo: inputTc)
+          .limit(1)
+          .get();
+
+      if (snapshot.docs.isEmpty) {
+        Get.snackbar("Hata", "Bu TC numarasına ait kullanıcı bulunamadı.");
+        return;
+      }
+
+      final userData = snapshot.docs.first.data();
+      final email = userData['email'];
+
+      if (email == null || email.toString().isEmpty) {
+        Get.snackbar("Hata", "Bu kullanıcıya ait e-posta adresi bulunamadı.");
+        return;
+      }
+
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      Get.snackbar("Başarılı", "Şifre sıfırlama bağlantısı ${email} adresine gönderildi.");
+
+    } catch (e) {
+      Get.snackbar("Hata", "Şifre sıfırlama başarısız: $e");
+    }
+  }
+
 }
