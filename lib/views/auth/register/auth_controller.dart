@@ -42,7 +42,9 @@ class AuthController extends GetxController {
   // 📁 Galeriden fotoğraf seçme
   Future<void> pickImageFromGallery() async {
     try {
-      final pickedFile = await ImagePicker().pickImage(source: ImageSource.camera);
+      final pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+      );
 
       if (pickedFile != null) {
         final file = File(pickedFile.path);
@@ -135,22 +137,34 @@ class AuthController extends GetxController {
     // 🔍 Yüz kontrolü
     final hasFace = await detectFaceInProfileImage();
     if (!hasFace) {
-      Get.snackbar("🚫 Yüz Algılanamadı", "Profil fotoğrafınızda yüz algılanmadı. Lütfen net bir yüz fotoğrafı yükleyin.");
+      Get.snackbar(
+        "🚫 Yüz Algılanamadı",
+        "Profil fotoğrafınızda yüz algılanmadı. Lütfen net bir yüz fotoğrafı yükleyin.",
+      );
       return false;
     }
 
     if (password.value.length != 6) {
-      Get.snackbar("⚠️ Eksik Bilgi", "Lütfen Şifrenizi 6 haneli olarak ekleyin");
+      Get.snackbar(
+        "⚠️ Eksik Bilgi",
+        "Lütfen Şifrenizi 6 haneli olarak ekleyin",
+      );
       return false;
     }
 
     if (tcNo.value.length != 11) {
-      Get.snackbar("⚠️ Eksik Bilgi", "Lütfen geçerli bir 11 Haneli TC Kimlik No girin");
+      Get.snackbar(
+        "⚠️ Eksik Bilgi",
+        "Lütfen geçerli bir 11 Haneli TC Kimlik No girin",
+      );
       return false;
     }
 
     if (phoneNumber.value.length != 11) {
-      Get.snackbar("⚠️ Eksik Bilgi", "Lütfen geçerli bir 11 Haneli Telefon No girin");
+      Get.snackbar(
+        "⚠️ Eksik Bilgi",
+        "Lütfen geçerli bir 11 Haneli Telefon No girin",
+      );
       return false;
     }
 
@@ -179,7 +193,6 @@ class AuthController extends GetxController {
         );
       }
 
-
       // Fotoğrafı yükle
       final url = await uploadProfileImage(uid);
       profileImageUrl.value = url;
@@ -194,7 +207,13 @@ class AuthController extends GetxController {
         profileImageUrl: profileImageUrl.value,
         phoneNumber: phoneNumber.value,
         tcNo: tcNo.value,
-        cashMoney: [AccountModel(name: 'Vadesiz Hesap', amount: 0.0, id: 'vadesiz_${DateTime.now().millisecondsSinceEpoch}')],
+        cashMoney: [
+          AccountModel(
+            name: 'Vadesiz Hesap',
+            amount: 100.00,
+            id: 'vadesiz_${DateTime.now().millisecondsSinceEpoch}',
+          ),
+        ],
       );
 
       // ✅ Local'e kaydet
@@ -206,15 +225,12 @@ class AuthController extends GetxController {
           .doc(uid)
           .set(userData.toJson());
 
-
       // ✅ LoginController'daki local listeyi güncelle
       final loginController = Get.isRegistered<LoginController>()
           ? Get.find<LoginController>()
           : null;
 
       await loginController?.loadLocalUsers();
-
-
 
       Get.snackbar("✅ Kayıt Başarılı", "Email ve bilgileriniz kaydedildi");
       return true;
@@ -243,7 +259,10 @@ class AuthController extends GetxController {
 
       return faces.isNotEmpty;
     } catch (e) {
-      Get.snackbar("Yüz Algılama Hatası", "Resimde yüz kontrol edilirken hata: $e");
+      Get.snackbar(
+        "Yüz Algılama Hatası",
+        "Resimde yüz kontrol edilirken hata: $e",
+      );
       return false;
     }
   }
