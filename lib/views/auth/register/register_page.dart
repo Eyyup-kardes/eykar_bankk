@@ -56,7 +56,7 @@ class RegisterPage extends StatelessWidget {
                               color: Colors.black54,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.photo, color: Colors.white, size: 24),
+                            child: const Icon(Icons.camera_alt, color: Colors.white, size: 24),
                           ),
                         ),
                       ),

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:image/image.dart' as img;
@@ -131,6 +132,13 @@ class AuthController extends GetxController {
       return false;
     }
 
+    // 🔍 Yüz kontrolü
+    final hasFace = await detectFaceInProfileImage();
+    if (!hasFace) {
+      Get.snackbar("🚫 Yüz Algılanamadı", "Profil fotoğrafınızda yüz algılanmadı. Lütfen net bir yüz fotoğrafı yükleyin.");
+      return false;
+    }
+
     if (password.value.length != 6) {
       Get.snackbar("⚠️ Eksik Bilgi", "Lütfen Şifrenizi 6 haneli olarak ekleyin");
       return false;
@@ -215,6 +223,28 @@ class AuthController extends GetxController {
       return false;
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<bool> detectFaceInProfileImage() async {
+    try {
+      final imagePath = profileImagePath.value;
+      final inputImage = InputImage.fromFilePath(imagePath);
+
+      final faceDetector = FaceDetector(
+        options: FaceDetectorOptions(
+          enableContours: true,
+          enableLandmarks: true,
+        ),
+      );
+
+      final faces = await faceDetector.processImage(inputImage);
+      await faceDetector.close();
+
+      return faces.isNotEmpty;
+    } catch (e) {
+      Get.snackbar("Yüz Algılama Hatası", "Resimde yüz kontrol edilirken hata: $e");
+      return false;
     }
   }
 }
